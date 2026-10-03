@@ -1,7 +1,7 @@
 FROM node:22-slim
 WORKDIR /app
 COPY package.json server.js backup.js ./
-COPY public ./public
+COPY index.html admin.html legal.html ./public/
 ENV NODE_ENV=production PORT=3000 DB_FILE=/data/zlecenka.db
 VOLUME /data
 EXPOSE 3000
