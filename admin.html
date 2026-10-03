@@ -1,0 +1,21 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Zlecenka: administracja</title>
+<style>:root{--bg:#F3F8FF;--card:#fff;--ink:#0B1B3A;--mute:#52627F;--line:#DCE7F7;--blue:#1D6FF2}@media(prefers-color-scheme:dark){:root{--bg:#09132A;--card:#10203F;--ink:#EAF1FF;--mute:#9DB1D3;--line:#22365C;--blue:#5B9BFF}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}main{max-width:820px;margin:0 auto;padding:24px 20px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px}.m{color:var(--mute);font-size:14px}
+button,input{font:inherit;border-radius:10px;padding:9px 16px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}button{cursor:pointer;font-weight:700}.y{background:var(--blue);color:#fff;border-color:var(--blue)}.r{display:flex;gap:10px;margin-top:10px}</style></head><body><main>
+<h1>Zgłoszenia zwrotów</h1><div id="o"></div><div id="ov"></div>
+<script>
+var T=sessionStorage.getItem('adm')||'',o=document.getElementById('o');
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function call(u,b){return fetch(u,{method:b?'POST':'GET',headers:{'x-admin-token':T,'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error);return j})})}
+function login(){o.innerHTML='<div class="c"><label for="t">Token administratora</label><div class="r"><input id="t" type="password" autocomplete="off"><button class="y" id="go">Wejdź</button></div><p class="m" id="e"></p></div>';
+document.getElementById('go').onclick=function(){T=document.getElementById('t').value;sessionStorage.setItem('adm',T);load();ovw()}}
+function load(){call('/api/admin/reports').then(function(j){
+o.innerHTML=j.reports.length?j.reports.map(function(r){return'<div class="c"><b>'+esc(r.title)+'</b><div class="m">'+esc(r.email)+' · '+r.cost+' pkt · '+new Date(r.t).toLocaleString('pl-PL')+' · telefon zlecenia: '+esc(r.phone)+'</div><p>'+esc(r.note||'(bez opisu)')+'</p><div class="r"><button class="y" data-id="'+r.id+'" data-a="1">Zwróć punkty</button><button data-id="'+r.id+'" data-a="0">Odrzuć</button></div></div>'}).join(''):'<div class="c">Brak oczekujących zgłoszeń.</div>';
+[].forEach.call(o.querySelectorAll('button[data-id]'),function(b){b.onclick=function(){b.disabled=true;call('/api/admin/reports/'+b.dataset.id,{approve:b.dataset.a==='1'}).then(load).catch(function(e){alert(e.message);b.disabled=false})}})
+}).catch(function(e){login();document.getElementById('e').textContent=T?e.message:''})}
+function ovw(){call('/api/admin/overview').then(function(j){var s=j.stats;document.getElementById('ov').innerHTML='<h2>Statystyki</h2><div class="c">Użytkownicy: '+s.users+' · Aktywne zlecenia: '+s.jobs+' · Odblokowania: '+s.unlocks+' · Przychód z punktów: '+s.revenue+' zł</div><h2>Zlecenia</h2>'+j.jobs.map(function(x){return'<div class="c"><b>'+esc(x.title)+'</b> <span class="m">'+esc(x.city)+' · '+esc(x.status)+' · '+x.resp+' odp. · '+esc(x.email)+'</span>'+(x.status==='closed'?'':'<div class="r"><button data-rm="'+x.id+'">Zamknij zlecenie</button></div>')+'</div>'}).join('')+'<h2>Użytkownicy</h2>'+j.users.map(function(x){return'<div class="c"><b>'+esc(x.name)+'</b> <span class="m">'+esc(x.email)+' · '+(x.role==='w'?'wykonawca · '+x.pts+' pkt':'zleceniodawca')+(x.banned?' · ZABLOKOWANY':'')+'</span><div class="r"><button data-ban="'+x.id+'" data-v="'+(x.banned?0:1)+'">'+(x.banned?'Odblokuj':'Zablokuj')+'</button></div></div>'}).join('');
+[].forEach.call(document.querySelectorAll('[data-rm]'),function(b){b.onclick=function(){call('/api/admin/jobs/'+b.dataset.rm+'/remove',{}).then(ovw)}});
+[].forEach.call(document.querySelectorAll('[data-ban]'),function(b){b.onclick=function(){call('/api/admin/users/'+b.dataset.ban+'/ban',{ban:b.dataset.v==='1'}).then(ovw)}})}).catch(function(){})}
+load();ovw();
+</script></main></body></html>

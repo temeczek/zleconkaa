@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zlecenka: zlecenia z okolicy za punkty</title>
+<meta name="description" content="Zlecenka: serwis lokalnych zleceń. Zleceniodawcy dodają ogłoszenia za darmo, wykonawcy odblokowują kontakt punktami.">
+<meta name="theme-color" content="#1D6FF2">
+<meta property="og:type" content="website"><meta property="og:locale" content="pl_PL"><meta property="og:title" content="Zlecenka: zlecenia z okolicy"><meta property="og:description" content="Znajdź konkretną pracę. Bez pośredników.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D6FF2'/%3E%3Cpath d='M9 23l8-8M14 9l5-3 6 6-3 5z' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#F3F8FF;--card:#fff;--ink:#0B1B3A;--mute:#52627F;--line:#DCE7F7;--blue:#1D6FF2;--deep:#0B3FA8;--sky:#E6F0FF;--ok:#0F8A5F;--err:#C62828;--hero:#1D6FF2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#09132A;--card:#10203F;--ink:#EAF1FF;--mute:#9DB1D3;--line:#22365C;--blue:#5B9BFF;--deep:#9CC2FF;--sky:#162A50;--ok:#4FD1A0;--err:#FF8A80;--hero:#1650C8}}
+:root[data-theme="dark"]{--bg:#09132A;--card:#10203F;--ink:#EAF1FF;--mute:#9DB1D3;--line:#22365C;--blue:#5B9BFF;--deep:#9CC2FF;--sky:#162A50;--ok:#4FD1A0;--err:#FF8A80;--hero:#1650C8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+.w{max-width:1240px;margin:0 auto;padding:0 28px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--line);z-index:5}
+header .w{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding-top:12px;padding-bottom:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.logo{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--blue);color:#fff}
+.ic{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);padding:8px 14px;border-radius:10px;white-space:nowrap;font-size:15px;font-weight:700}
+nav a[aria-current="page"]{color:var(--deep);background:var(--sky)}
+#acct{margin-left:auto;display:flex;align-items:center;gap:8px}
+@media(max-width:760px){nav{order:3;width:100%}}
+.chip{display:inline-flex;flex-direction:column;line-height:1.2;font-weight:700;font-size:14px}
+.chip small{font-weight:500;color:var(--mute);font-size:12px}
+.coin{background:var(--sky);color:var(--deep);font-weight:700;font-size:14px;padding:4px 12px;border-radius:99px;white-space:nowrap;text-decoration:none;border:1px solid var(--line)}
+h1,h2,h3{line-height:1.15;margin:0;letter-spacing:-.02em;font-weight:800}
+h1{font-size:clamp(32px,6vw,52px);max-width:16ch}
+h2{font-size:28px;margin:48px 0 8px}
+h3{font-size:18px}
+.lead{color:var(--mute);max-width:56ch;margin:12px 0 22px}
+.mute{color:var(--mute);font-size:14px}
+.hero{background:linear-gradient(120deg,var(--sky) 0%,var(--bg) 70%);border-bottom:1px solid var(--line);padding:64px 0 56px}
+.hero::before{content:"";position:absolute;right:-90px;top:-110px;width:360px;height:360px;border-radius:50%;background:#4B8CFF;opacity:.55}
+.hero::after{content:"";position:absolute;left:-60px;bottom:-120px;width:240px;height:240px;border-radius:50%;background:#19B5E8;opacity:.4}
+.hero .cols{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center}
+.hero h1{max-width:18ch;font-size:clamp(36px,5.2vw,64px)}
+@media(max-width:760px){.hero .cols,.cols2{grid-template-columns:1fr!important}}
+.btn{display:inline-block;background:#1D6FF2;color:#fff;border:0;border-radius:10px;padding:10px 18px;font:700 15px "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{background:#0F5AD6}
+.btn.sm{padding:7px 14px;font-size:14px}
+.btn.alt{background:transparent;color:var(--deep);box-shadow:inset 0 0 0 1.5px currentColor}
+.btn.alt:hover{background:var(--sky)}
+.btn.white{background:#fff;color:#0B3FA8}
+.hero .btn.alt{color:#fff}
+.hero .btn.alt:hover{background:rgba(255,255,255,.15)}
+.btn.block{width:100%;text-align:center}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.card{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{color:var(--blue)}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;color:var(--mute);font-size:14px;margin:6px 0 8px}
+.tag{background:var(--sky);color:var(--deep);border-radius:99px;padding:1px 10px;font-size:13px;font-weight:700}
+.foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;border-top:1px solid var(--line);padding-top:10px}
+.foot .btn{margin-left:auto;padding:6px 14px}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--blue)}
+.dots i.on{background:var(--blue)}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.main2{display:grid;grid-template-columns:1fr 330px;gap:24px;align-items:start}
+@media(max-width:760px){.main2{grid-template-columns:1fr}}
+.steps{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;margin-bottom:10px}
+.steps b{display:block}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+label{display:block;font-size:14px;color:var(--mute);margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px 12px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.filters select{width:auto;background:var(--card)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.pk{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:12px 0}
+.pk button{text-align:left;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:var(--ink);font:inherit;cursor:pointer}
+.pk button:disabled{opacity:.6;cursor:not-allowed}
+.pk b{display:block;font-size:26px;font-weight:800}
+.pk .best{border:2px solid var(--blue);background:var(--sky)}
+.bal{font-size:44px;font-weight:800;color:var(--blue)}
+.err{color:var(--err);font-size:14px;min-height:1.3em;margin:8px 0 0}
+.hist{list-style:none;padding:0;margin:0}
+.hist li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.crumb{font-size:14px;color:var(--mute);margin:24px 0 8px}
+.lock{background:var(--sky);border-radius:10px;padding:12px;margin:12px 0}
+.phone{font-size:22px;font-weight:800;color:var(--ok)}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:12px 0;font-size:15px}
+dt{color:var(--mute)}dd{margin:0}
+details{border-bottom:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;font-weight:700}
+details p{margin:8px 0 0;color:var(--mute)}
+.band{background:var(--sky);padding:36px 0;margin-top:48px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.seg button{text-align:left;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:700 15px inherit;font-family:inherit;cursor:pointer}
+.seg button small{display:block;font-weight:500;color:var(--mute);font-size:13px}
+.seg button[aria-pressed="true"]{border-color:var(--blue);background:var(--sky)}
+.auth{max-width:460px;margin:32px auto 0}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 40px;background:var(--card)}
+footer .w{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;color:var(--mute)}
+#toast{z-index:30;position:sticky;bottom:14px;margin:0 auto;max-width:480px;background:var(--deep);color:#fff;padding:10px 14px;border-radius:10px;font-size:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+.tile{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;font:700 15px inherit;font-family:inherit;color:var(--ink);cursor:pointer;text-align:left}
+.tile i{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:var(--sky);color:var(--blue);font-style:normal;font-weight:800;font-size:18px}
+.lift{transition:transform .2s,border-color .2s}
+.lift:hover{transform:translateY(-4px);border-color:var(--blue)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:40px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center;font-size:14px;color:var(--mute)}
+.stats b{display:block;font-size:32px;font-weight:800;color:var(--blue);line-height:1.1}
+.pros{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.pro{margin:0}
+.av{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800}
+.st{color:var(--blue);letter-spacing:2px}
+.ok{font-size:12px;color:var(--ok);font-weight:700}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(-30px,24px)}}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:none;opacity:1}}
+.pg{animation:up .4s both}
+.hero::before{animation:drift 9s ease-in-out infinite alternate}
+.hero::after{animation:drift 11s ease-in-out infinite alternate-reverse}
+.hero h1,.hero .lead,.hero .row,.hero .card{animation:up .6s backwards}
+.hero .lead{animation-delay:.1s}.hero .row{animation-delay:.2s}
+.hero .card:nth-child(1){animation-delay:.25s}.hero .card:nth-child(2){animation-delay:.4s}.hero .card:nth-child(3){animation-delay:.55s}
+.phone{animation:pop .45s both}
+.btn{transition:background .2s,transform .15s}.btn:active{transform:scale(.97)}
+#toast{animation:up .3s backwards}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+.btn.ic-l{display:inline-flex;align-items:center;gap:8px}
+.btn.out{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}.btn.out:hover{background:var(--sky)}
+.eyebrow{color:var(--blue);font-weight:800;font-size:14px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 18px}
+.sf{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;max-width:820px}
+.sfi{position:relative;flex:1 1 360px}.sfi .ic{position:absolute;left:18px;top:50%;margin-top:-9px}
+.sfi input{height:50px;padding:0 16px 0 46px;font-size:16px;background:var(--card);box-shadow:0 8px 24px rgba(11,63,168,.08)}
+.sf .btn{height:50px;padding:0 22px}
+.chips{display:flex;align-items:center;gap:10px;overflow-x:auto;padding:22px 0 6px}.chips .ic{color:var(--mute)}
+.chips button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 14px;font:700 14px "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.jg{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}.jg .card{margin:0}
+.modal{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:16px;background:rgba(11,27,58,.5);overflow:auto}
+.dlg{width:100%;max-width:520px;background:var(--card);border-radius:16px;padding:28px 32px;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.dlg .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.dlg h2{margin:0;font-size:24px}
+.dlg .x{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;color:var(--ink)}.dlg .x:hover{background:var(--sky)}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:46px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;font:700 15px "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer}
+.or{display:flex;align-items:center;gap:12px;color:var(--mute);font-size:13px;margin:18px 0 0}.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.dlg label{color:var(--ink);font-weight:700;margin:16px 0 6px}
+.dlg .lk{display:flex;justify-content:space-between;gap:12px;margin-top:18px;font-weight:700;font-size:15px}
+.dlg .lk a,.dlg .lk button{color:var(--ink);text-decoration:none;background:none;border:0;font:inherit;cursor:pointer;padding:0}
+.btn.go{display:flex;justify-content:center;align-items:center;gap:8px;width:100%;height:46px;margin-top:6px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="w">
+<a class="brand" href="#/"><span class="logo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 12-8.4 8.4a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.9-1.9A2 2 0 0 1 19 8.2V7l-2.3-2.3a6 6 0 0 0-4.2-1.8L9 3l.9.8A6.2 6.2 0 0 1 12 8.4V10l2 2h1.2a2 2 0 0 1 1.4.6l1.9 1.9"/></svg></span>Zlecenka</a>
+<nav id="nav" aria-label="Główna nawigacja"></nav>
+<div id="acct"></div>
+</div></header>
+<main id="app"></main>
+<noscript><p style="padding:24px">Zlecenka wymaga włączonej obsługi JavaScript.</p></noscript>
+<div class="w"><div id="toast" role="status" hidden></div></div>
+<footer><div class="w"><span>© 2026 Zlecenka</span><a href="#/zlecenia">Zlecenia</a><a href="#/jak-to-dziala">Jak to działa</a><a href="#/portfel">Cennik</a><a href="#/rejestracja">Załóż konto</a><a href="/uslugi/remont-i-budowa">Remont i budowa</a><a href="/uslugi/elektryka">Elektryk</a><a href="/uslugi/hydraulika">Hydraulik</a><a href="/uslugi/sprzatanie">Sprzątanie</a><a href="/uslugi/ogrod">Ogród</a><a href="/uslugi/transport">Transport</a><a href="/uslugi/montaz-i-naprawy">Montaż i naprawy</a><a href="/regulamin">Regulamin</a><a href="/polityka-prywatnosci">Polityka prywatności</a></div></footer>
+
+<script>
+document.documentElement.classList.add('js');
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CATS=['Remont i budowa','Elektryka','Hydraulika','Sprzątanie','Ogród','Transport','Montaż i naprawy','Inne'],CITIES=['Kraków','Warszawa','Wrocław'];
+let U=null,L={role:'w'},pts=0,F={city:'',cat:'',sort:'new'},hist=[];
+let jobs=[],mj=[];
+const mq=j=>!F.q||(j.title+' '+j.desc+' '+j.city+' '+j.cat).toLowerCase().includes(F.q.toLowerCase());
+const IC={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',login:'<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',sl:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',go:'<path d="m9 6 6 6-6 6"/>'};
+const ic=n=>'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+IC[n]+'</svg>';
+const EMPTY='<div class="card" style="grid-column:1/-1"><h3>Nie ma jeszcze żadnych zleceń</h3><p class="mute">Bądź pierwszy. Dodanie zlecenia jest bezpłatne.</p><a class="btn" href="#/dodaj">Dodaj zlecenie</a></div>';
+const age=m=>m<1?'przed chwilą':m<60?m+' min temu':m<1440?Math.round(m/60)+' godz. temu':m<2880?'wczoraj':Math.round(m/1440)+' dni temu';
+let mailOn=false,gOn=false,vt='';
+async function api(u,m,b){const r=await fetch(u,{method:m||'GET',headers:b?{'Content-Type':'application/json'}:{},body:b?JSON.stringify(b):undefined}),j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Błąd serwera');return j}
+async function sync(){const[m,l]=await Promise.all([api('/api/me'),api('/api/jobs')]);U=m.user;mailOn=!!m.mail;gOn=!!m.google;pts=U?U.pts:0;hist=(m.ledger||[]).map(x=>({t:x.note,d:(x.d>0?'+':'−')+Math.abs(x.d)+' pkt'}));
+jobs=l.jobs.map(j=>({id:j.id,title:j.title,cat:j.cat,city:j.city,budget:j.budget,desc:j.descr,m:Math.max(0,Math.round((Date.now()-j.t)/6e4)),resp:j.resp,cost:j.cost,open:j.open,own:j.own}));mj=U&&U.role==='z'?(await api('/api/my-jobs')).jobs:[]}
+const rn=r=>r==='w'?'Wykonawca':'Zleceniodawca';
+const dots=j=>'<span class="dots" role="img" aria-label="Odpowiedzi: '+j.resp+' z 5">'+Array.from({length:5},(_,i)=>'<i class="'+(i<j.resp?'on':'')+'"></i>').join('')+'</span> <span class="mute">'+j.resp+' z 5</span>';
+const jc=j=>'<article class="card lift"><div class="top"><h3><a href="#/zlecenie/'+j.id+'">'+esc(j.title)+'</a></h3><span class="coin">'+j.cost+' pkt</span></div><div class="meta"><span class="tag">'+j.cat+'</span><span>'+esc(j.city)+'</span><span>'+age(j.m)+'</span><span>do '+j.budget+' zł</span></div><div class="foot">'+dots(j)+'<a class="btn alt sm" href="#/zlecenie/'+j.id+'">Zobacz</a></div></article>';
+const sel=(id,arr,v,all)=>'<select data-f="'+id+'" aria-label="'+all+'"><option value="">'+all+'</option>'+arr.map(x=>'<option'+(x===v?' selected':'')+'>'+x+'</option>').join('')+'</select>';
+const gate=(t,p,h,b)=>'<div class="w"><div class="card" style="margin-top:32px"><h3>'+t+'</h3><p class="mute">'+p+'</p><a class="btn" href="'+h+'">'+b+'</a></div></div>';
+
+function home(){return '<section class="hero"><div class="w"><p class="eyebrow">Zlecenia z Twojej okolicy</p><h1>Znajdź konkretną pracę. Bez pośredników.</h1><p class="lead">Przeglądaj aktualne zlecenia, odblokowuj kontakt punktami i ustalaj szczegóły bezpośrednio z klientem.</p><form class="sf" id="sf" role="search"><div class="sfi">'+ic('search')+'<input id="q" aria-label="Czego lub gdzie szukasz?" placeholder="Czego lub gdzie szukasz?" value="'+esc(F.q||'')+'"></div><a class="btn ic-l" href="#/dodaj">'+ic('plus')+'Zleć pracę</a></form></div></section>'
++'<div class="w"><div class="chips" role="group" aria-label="Kategorie">'+ic('sl')+['Wszystkie'].concat(CATS).map(c=>{const v=c==='Wszystkie'?'':c;return '<button data-chip="'+v+'" aria-pressed="'+((F.cat||'')===v)+'">'+c+'</button>'}).join('')+'</div><h2 style="margin-top:24px">Najnowsze zlecenia</h2><div class="jg" id="hl"></div></div>'
++'<div class="w"><div class="stats"><div><b data-n="5">0</b>maks. odpowiedzi na zlecenie</div><div><b data-n="10">0</b>darmowych punktów na start</div><div><b data-n="3">0</b>pkt za małe zlecenie</div><div><b data-n="8">0</b>kategorii usług</div></div>'
++'<h2>Jak to działa</h2><ol class="steps"><li><b>Zleceniodawca dodaje ogłoszenie</b><span class="mute">Wybiera kategorię, opisuje zlecenie i podaje budżet.</span></li><li><b>Wykonawcy przeglądają listę</b><span class="mute">Filtrują po mieście i kategorii. Telefon jest ukryty.</span></li><li><b>Odblokowanie za punkty</b><span class="mute">Płacisz tylko za zlecenia, które chcesz wykonać.</span></li></ol>'
++'<h2>Dlaczego Zlecenka</h2><div class="cols2 why" style="margin-top:12px"><div class="card"><h3>Limit 5 odpowiedzi</h3><p class="mute" style="margin:6px 0 0">Klient nie jest zasypany telefonami, a Ty nie konkurujesz z tłumem.</p></div><div class="card"><h3>Ukryty numer telefonu</h3><p class="mute" style="margin:6px 0 0">Widzą go tylko wykonawcy, którzy odblokowali zlecenie.</p></div><div class="card"><h3>Zwrot punktów</h3><p class="mute" style="margin:6px 0 0">Jeśli klient nie odbierze, zgłoś to na stronie zlecenia. Po sprawdzeniu punkty wracają do portfela.</p></div></div>'
+
++'<h2>Wybierz swoją rolę</h2><div class="cols2" style="margin-top:12px"><div class="card"><h3>Zleceniodawca</h3><p class="mute">Dodajesz ogłoszenia za darmo i dostajesz telefony od zainteresowanych wykonawców.</p><a class="btn" href="#/rejestracja/z">Załóż konto zleceniodawcy</a></div><div class="card"><h3>Wykonawca</h3><p class="mute">Zaczynasz z 10 darmowymi punktami i płacisz tylko za wybrane zlecenia.</p><a class="btn" href="#/rejestracja/w">Załóż konto wykonawcy</a></div></div></div>'}
+
+function drawHome(){const l=jobs.filter(j=>(!F.cat||j.cat===F.cat)&&mq(j)).sort((a,b)=>a.m-b.m).slice(0,6);$('#hl').innerHTML=l.map(jc).join('')||(jobs.length?'<p class="mute" style="grid-column:1/-1">Brak zleceń dla tych kryteriów.</p>':EMPTY)}
+function list(){return '<div class="w"><h2 style="margin-top:32px">Zlecenia</h2><p class="lead" id="cnt"></p><div class="filters"><input data-f="q" aria-label="Szukaj" placeholder="Szukaj zleceń" value="'+esc(F.q||'')+'" style="width:220px;background:var(--card)">'+sel('city',[...new Set(jobs.map(j=>j.city))].sort(),F.city,'Wszystkie miasta')+sel('cat',CATS,F.cat,'Wszystkie kategorie')+'<select data-f="sort" aria-label="Sortowanie"><option value="new"'+(F.sort==='new'?' selected':'')+'>Najnowsze</option><option value="cost"'+(F.sort==='cost'?' selected':'')+'>Najtańsze odblokowanie</option><option value="resp"'+(F.sort==='resp'?' selected':'')+'>Najmniej odpowiedzi</option></select></div><div class="jg" id="list"></div></div>'}
+function drawList(){const l=jobs.filter(j=>(!F.city||j.city===F.city)&&(!F.cat||j.cat===F.cat)&&mq(j)).sort((a,b)=>F.sort==='cost'?a.cost-b.cost:F.sort==='resp'?a.resp-b.resp:a.m-b.m);$('#cnt').textContent='Znaleziono: '+l.length;setTimeout(reveal,0);$('#list').innerHTML=l.map(jc).join('')||(jobs.length?'<p class="mute" style="grid-column:1/-1">Brak zleceń dla tych filtrów. Zmień miasto lub kategorię.</p>':EMPTY)}
+
+function detail(id){const j=jobs.find(x=>x.id==id);if(!j)return gate('Nie znaleziono zlecenia','Mogło zostać usunięte.','#/zlecenia','Wróć do listy');
+const lk=t=>'<div class="lock"><span class="mute">Telefon zleceniodawcy</span><div class="phone" id="'+(t?'ph':'x')+'">'+(t?'…':'•• ••• •••')+'</div></div>';let act;
+if(j.open||j.own)act=lk(1)+'<a class="btn block" id="call" href="#">Zadzwoń</a>'+(j.open?'<details><summary>Zleceniodawca nie odebrał?</summary><form id="rp"><label for="rn">Opisz krótko, co się stało</label><input id="rn" maxlength="300"><p class="err" id="e" role="alert"></p><button class="btn alt sm" type="submit">Zgłoś i poproś o zwrot punktów</button></form></details>':'');
+else if(j.resp>=5)act='<div class="lock">To zlecenie ma już komplet odpowiedzi.</div>';
+else if(!U)act=lk(0)+'<a class="btn block" href="#/logowanie/w">Zaloguj się jako wykonawca</a>';
+else if(U.role==='z')act=lk(0)+'<p class="mute">Odblokowywanie jest dostępne na koncie wykonawcy.</p>';
+else act=lk(0)+'<button class="btn block" data-act="unlock" data-id="'+j.id+'">Odblokuj kontakt za '+j.cost+' pkt</button><p class="mute">Zwrot punktów po zgłoszeniu, jeśli zleceniodawca nie odbierze.</p>';
+return '<div class="w"><p class="crumb"><a href="#/zlecenia">Zlecenia</a> / '+esc(j.cat)+'</p><div class="main2"><div><h1 style="font-size:34px;max-width:none">'+esc(j.title)+'</h1><dl><dt>Kategoria</dt><dd>'+esc(j.cat)+'</dd><dt>Miasto</dt><dd>'+esc(j.city)+'</dd><dt>Dodano</dt><dd>'+age(j.m)+'</dd><dt>Budżet</dt><dd>do '+j.budget+' zł</dd></dl><h3>Opis</h3><p>'+esc(j.desc)+'</p><div id="gal" class="row"></div><div id="wc"></div><div class="card"><h3>Zanim zadzwonisz</h3><p class="mute" style="margin:6px 0 0">Zapytaj o zakres prac, termin i materiały. Limit to 5 odpowiedzi, więc warto zadzwonić szybko.</p></div></div><aside class="card"><div class="top"><b>Koszt odblokowania</b><span class="coin">'+j.cost+' pkt</span></div><p>'+dots(j)+'</p>'+act+(U&&U.role==='w'?'<p class="mute" style="margin:10px 0 0">Twoje saldo: '+pts+' pkt</p>':'')+'</aside></div></div>'}
+
+function add(){if(!U)return gate('Zaloguj się, żeby dodać zlecenie','Konto zleceniodawcy jest darmowe.','#/rejestracja/z','Załóż konto zleceniodawcy');
+if(U.role!=='z')return gate('Dodawanie zleceń jest dla zleceniodawców','Jesteś zalogowany jako wykonawca. Wyloguj się i załóż konto zleceniodawcy.','#/rejestracja/z','Załóż konto zleceniodawcy');
+return '<div class="w"><h2 style="margin-top:32px">Dodaj zlecenie</h2><p class="lead">Za darmo. Telefon zobaczą tylko wykonawcy, którzy odblokują zlecenie.</p><div class="main2"><form id="f" class="card" novalidate><label for="t" style="margin-top:0">Co trzeba zrobić</label><input id="t" placeholder="Wymiana baterii w łazience"><label for="d">Opis</label><textarea id="d" rows="3" maxlength="1000" placeholder="Zakres prac, termin, materiały"></textarea><label for="k">Kategoria</label><select id="k">'+CATS.map(x=>'<option>'+x+'</option>').join('')+'</select><label for="c">Miasto</label><input id="c" list="cl" autocomplete="address-level2" placeholder="Np. Kraków"><datalist id="cl">'+CITIES.map(x=>'<option value="'+x+'">').join('')+'</datalist><label for="b">Budżet (zł)</label><input id="b" inputmode="numeric" placeholder="300"><label for="p">Telefon</label><input id="p" inputmode="tel" placeholder="500 100 200"><label for="pi">Zdjęcia (opcjonalnie, do 3)</label><input id="pi" type="file" accept="image/*" multiple><p class="err" id="e" role="alert"></p><button class="btn" type="submit">Opublikuj zlecenie</button></form><aside class="card"><h3>Co dalej</h3><p class="mute">Zlecenie pojawi się na liście od razu. Zadzwoni do Ciebie najwyżej 5 wykonawców, którzy zapłacili za kontakt.</p></aside></div></div>'}
+
+function ads(){if(!U||U.role!=='z')return gate('Moje ogłoszenia','Zaloguj się jako zleceniodawca, żeby zobaczyć swoje zlecenia.','#/logowanie/z','Zaloguj się');
+const l=mj;return '<div class="w"><h2 style="margin-top:32px">Moje ogłoszenia</h2><p class="lead">Tu zobaczysz, ilu wykonawców odblokowało Twoje zlecenia.</p>'+(l.length?l.map(mc).join(''):'<div class="card"><h3>Nie masz jeszcze ogłoszeń</h3><p class="mute">Dodaj pierwsze, a wykonawcy zobaczą je od razu.</p><a class="btn" href="#/dodaj">Dodaj zlecenie</a></div>')+'</div>'}
+
+function how(){return '<div class="w"><h2 style="margin-top:32px">Jak to działa</h2><ol class="steps"><li><b>Zleceniodawca dodaje ogłoszenie</b><span class="mute">Opis, miasto, budżet i telefon.</span></li><li><b>Wykonawca przegląda listę</b><span class="mute">Telefon jest ukryty do odblokowania.</span></li><li><b>Kontakt za punkty</b><span class="mute">Po odblokowaniu widzisz numer i dzwonisz.</span></li></ol><h2>Najczęstsze pytania</h2>'
++'<details><summary>Ile kosztuje dodanie zlecenia?</summary><p>Nic. Dla zleceniodawców serwis jest darmowy.</p></details><details><summary>Ile punktów kosztuje odblokowanie?</summary><p>3 punkty przy budżecie do 300 zł, 5 punktów do 800 zł i 8 punktów powyżej.</p></details><details><summary>Ilu wykonawców odblokuje zlecenie?</summary><p>Najwyżej pięciu, więc klient nie zostaje zasypany telefonami.</p></details><details><summary>Co, jeśli klient nie odbierze?</summary><p>Zgłaszasz to na stronie zlecenia w ciągu 7 dni. Po sprawdzeniu punkty wracają do portfela.</p></details></div>'}
+
+function wallet(){const w=U&&U.role==='w';return '<div class="w"><h2 style="margin-top:32px">'+(w?'Portfel':'Cennik')+'</h2>'+(w?'<div class="card"><span class="mute">Twoje saldo</span><div class="bal">'+pts+' pkt</div></div><div class="pk"><button data-act="buy" data-n="10"><b>10 pkt</b>20 zł</button><button class="best" data-act="buy" data-n="30"><b>30 pkt</b>50 zł, najczęściej wybierany</button><button data-act="buy" data-n="100"><b>100 pkt</b>150 zł</button></div><p class="mute">Płatność obsługuje Stripe. Punkty trafiają do portfela po potwierdzeniu płatności.</p>':'<p class="lead">Pakiety punktów: 10 pkt za 20 zł, 30 pkt za 50 zł, 100 pkt za 150 zł. Punkty kupują tylko wykonawcy.</p><a class="btn" href="#/rejestracja/w">Załóż konto wykonawcy</a>')
++'<h3 style="margin-top:28px">Koszt odblokowania</h3><dl><dt>Budżet do 300 zł</dt><dd>3 pkt</dd><dt>Budżet do 800 zł</dt><dd>5 pkt</dd><dt>Budżet powyżej 800 zł</dt><dd>8 pkt</dd></dl>'+(w?'<h3 style="margin-top:28px">Historia</h3><ul class="hist">'+hist.map(h=>'<li><span>'+esc(h.t)+'</span><b>'+esc(h.d)+'</b></li>').join('')+'</ul>':'')+'</div>'}
+
+function mine(){if(!U||U.role!=='w')return gate('Moje kontakty','Zaloguj się jako wykonawca, żeby zobaczyć odblokowane zlecenia.','#/logowanie/w','Zaloguj się');
+const l=jobs.filter(j=>j.open);return '<div class="w"><h2 style="margin-top:32px">Moje kontakty</h2><p class="lead">Zlecenia, które odblokowałeś.</p>'+(l.length?l.map(j=>'<article class="card"><div class="top"><h3><a href="#/zlecenie/'+j.id+'">'+esc(j.title)+'</a></h3><a class="btn alt sm" href="#/zlecenie/'+j.id+'">Pokaż numer</a></div><div class="meta"><span class="tag">'+j.cat+'</span><span>'+esc(j.city)+'</span><span>do '+j.budget+' zł</span></div></article>').join(''):'<div class="card"><h3>Nie masz jeszcze kontaktów</h3><p class="mute">Odblokuj pierwsze zlecenie, a numer pojawi się tutaj.</p><a class="btn" href="#/zlecenia">Przeglądaj zlecenia</a></div>')+'</div>'}
+
+function auth(up){const r=L.role;return '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="dlg"><div class="hd"><h2 id="mt">'+(up?'Załóż konto':'Witaj ponownie')+'</h2><a class="x" href="#/" aria-label="Zamknij">'+ic('x')+'</a></div>'+(up?'<div class="seg"><button data-act="role" data-r="z" aria-pressed="'+(r==='z')+'">Zleceniodawca<small>Dodaję ogłoszenia</small></button><button data-act="role" data-r="w" aria-pressed="'+(r==='w')+'">Wykonawca<small>Realizuję zlecenia</small></button></div>':'')+(gOn?'<a class="btn out block" href="/api/auth/google?role='+r+'" style="text-align:center">Kontynuuj z Google</a><p class="mute" style="text-align:center;margin:10px 0">lub e-mailem</p>':'')+'<form id="a" novalidate data-up="'+(up?1:0)+'">'+(up?'<label for="n">Imię lub nazwa firmy</label><input id="n" autocomplete="name">':'')+'<label for="m">E-mail</label><input id="m" type="email" autocomplete="email" placeholder="ty@email.pl"><label for="s">Hasło</label><input id="s" type="password" autocomplete="'+(up?'new-password':'current-password')+'" placeholder="Minimum 8 znaków"><p class="err" id="e" role="alert"></p><button class="btn go" type="submit">'+(up?'Załóż konto':'Zaloguj się')+ic('go')+'</button></form><div class="lk">'+(up?'<a href="#/logowanie">Mam już konto</a>':'<a href="#/rejestracja">Załóż konto</a>'+(mailOn?'<a href="#/zapomniane">Nie pamiętam hasła</a>':''))+'</div><p class="mute" style="margin:14px 0 0;font-size:12px">Kontynuując, akceptujesz <a href="/regulamin">Regulamin</a> i <a href="/polityka-prywatnosci">Politykę prywatności</a>.</p></div></div>'}
+
+const dlg=(t,x,b)=>'<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="dlg"><div class="hd"><h2 id="mt">'+t+'</h2><a class="x" href="#/" aria-label="Zamknij">'+ic('x')+'</a></div>'+b+'</div></div>';
+const forgot=()=>dlg('Odzyskaj hasło','','<p class="mute">Podaj adres e-mail konta. Wyślemy link do ustawienia nowego hasła.</p><form id="fg" novalidate><label for="m">E-mail</label><input id="m" type="email" autocomplete="email" placeholder="ty@email.pl"><p class="err" id="e" role="alert"></p><button class="btn go" type="submit">Wyślij link</button></form>');
+const reset=t=>dlg('Nowe hasło','','<form id="rs" data-t="'+t+'" novalidate><label for="s">Nowe hasło</label><input id="s" type="password" autocomplete="new-password" placeholder="Minimum 8 znaków"><p class="err" id="e" role="alert"></p><button class="btn go" type="submit">Ustaw hasło</button></form>');
+function verify(t){if(vt===t)return;vt=t;api('/api/verify','POST',{token:t}).then(()=>sync()).then(()=>{toast('Adres e-mail potwierdzony.');location.hash='#/'}).catch(x=>{toast(x.message);location.hash='#/'})}
+const shrink=fs=>Promise.all([...fs].slice(0,3).map(f=>new Promise(res=>{const i=new Image,u=URL.createObjectURL(f);i.onload=()=>{const k=Math.min(1,800/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.7))};i.onerror=()=>res(null);i.src=u}))).then(a=>a.filter(Boolean));
+const chat=k=>'<div class="chat" data-k="'+k+'"><div id="cm'+k+'" style="max-height:260px;overflow:auto;margin:8px 0"></div><div class="row"><input id="ci'+k+'" maxlength="1000" placeholder="Napisz wiadomość" aria-label="Wiadomość"><button class="btn sm" data-act="send" data-u="'+k+'">Wyślij</button></div></div>';
+function loadChat(k){api('/api/threads/'+k).then(r=>{const el=$('#cm'+k);if(!el)return;el.innerHTML=r.messages.map(m=>'<p style="margin:6px 0;text-align:'+(m.mine?'right':'left')+'"><span style="display:inline-block;padding:6px 12px;border-radius:12px;'+(m.mine?'background:var(--blue);color:#fff':'background:var(--card);border:1px solid var(--line)')+'">'+esc(m.txt)+'</span></p>').join('')||'<p class="mute">Brak wiadomości.</p>';el.scrollTop=el.scrollHeight}).catch(()=>{})}
+setInterval(()=>document.querySelectorAll('.chat').forEach(c=>loadChat(c.dataset.k)),15000);
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&/^ci/.test(e.target.id||'')){const b=e.target.parentNode.querySelector('[data-act=send]');if(b)b.click()}});
+const konto=()=>!U?gate('Konto','Zaloguj się, żeby zarządzać kontem.','#/logowanie','Zaloguj się'):'<div class="w"><h2 style="margin-top:32px">Moje konto</h2><div class="card"><p><b>'+esc(U.email)+'</b> · '+rn(U.role)+'</p><p><a class="btn alt sm" href="/api/account/export" download="zlecenka-dane.json">Pobierz moje dane</a></p></div><div class="card" style="margin-top:12px"><h3>Usuń konto</h3><p class="mute">Konto zostanie zanonimizowane, a niewykorzystane punkty przepadną. Dane rozliczeniowe zachowujemy tylko w zakresie wymaganym przepisami.</p><form id="dl" novalidate><label for="de">Wpisz swój adres e-mail, aby potwierdzić</label><input id="de" autocomplete="off"><p class="err" id="e" role="alert"></p><button class="btn out sm" type="submit">Usuń konto na stałe</button></form></div></div>';
+const ST={open:'Otwarte',progress:'W realizacji',done:'Zakończone',closed:'Zamknięte'};
+const mc=j=>{const ex=j.status==='open'&&j.exp<Date.now();return '<article class="card"><div class="top"><h3>'+esc(j.title)+'</h3><span class="tag">'+(ex?'Wygasło':ST[j.status]||j.status)+'</span></div><div class="meta"><span class="tag">'+j.cat+'</span><span>'+esc(j.city)+'</span><span>do '+j.budget+' zł</span><span>'+j.resp+' z 5 odpowiedzi</span></div><div class="row"><select data-st="'+j.id+'" aria-label="Status">'+Object.keys(ST).map(k=>'<option value="'+k+'"'+(k===j.status?' selected':'')+'>'+ST[k]+'</option>').join('')+'</select>'+(ex?'<button class="btn sm" data-act="renew" data-id="'+j.id+'">Odnów na 30 dni</button>':'')+'<button class="btn alt sm" data-act="resp" data-id="'+j.id+'">Wykonawcy ('+j.resp+')</button><button class="btn alt sm" data-act="edit" data-id="'+j.id+'">Edytuj</button><button class="btn out sm" data-act="del" data-id="'+j.id+'">Usuń</button></div><div id="rl'+j.id+'"></div></article>'};
+function showResp(id){const el=$('#rl'+id);api('/api/jobs/'+id+'/responders').then(r=>{el.innerHTML=r.responders.length?r.responders.map(w=>'<div class="card" data-u="'+w.unlock_id+'" style="margin:10px 0 0"><b><a href="#/wykonawca/'+w.wid+'">'+esc(w.name)+'</a></b> <span class="mute">'+(w.n?'★ '+w.avg+' ('+w.n+')':'brak opinii')+(w.city?' · '+esc(w.city):'')+'</span>'+(w.reviewed?'<p class="mute" style="margin:6px 0 0">Oceniono.</p>':'<div class="row" style="margin-top:8px"><select aria-label="Ocena">'+[5,4,3,2,1].map(n=>'<option>'+n+'</option>').join('')+'</select><input placeholder="Krótka opinia" maxlength="500"><button class="btn alt sm" data-act="rate" data-id="'+id+'">Oceń</button></div>')+'<p><button class="btn alt sm" data-act="chat" data-u="'+w.unlock_id+'">Wiadomości</button></p><div id="cw'+w.unlock_id+'"></div></div>').join(''):'<p class="mute">Nikt jeszcze nie odblokował kontaktu.</p>'}).catch(x=>toast(x.message))}
+const prof=()=>!U||U.role!=='w'?gate('Profil wykonawcy','Zaloguj się jako wykonawca.','#/logowanie/w','Zaloguj się'):'<div class="w"><h2 style="margin-top:32px">Mój profil</h2><p class="lead">Zleceniodawcy zobaczą go, gdy odblokujesz ich zlecenie.</p><div class="card" id="pf"><p class="mute">Ładowanie…</p></div></div>';
+function fillProf(){api('/api/profile').then(p=>{$('#pf').innerHTML='<label for="pb" style="margin-top:0">O Tobie</label><textarea id="pb" rows="4" maxlength="600" placeholder="Doświadczenie, zakres usług, narzędzia">'+esc(p.bio)+'</textarea><label for="pc">Miasto</label><input id="pc" value="'+esc(p.city)+'" placeholder="Np. Kraków"><label>Kategorie</label><div class="row">'+CATS.map(c=>'<label style="margin:0"><input type="checkbox" style="width:auto" data-c="'+c+'"'+(p.cats.includes(c)?' checked':'')+'> '+c+'</label>').join('')+'</div>'+(p.mail?'<label style="margin-top:14px"><input type="checkbox" style="width:auto" id="pn"'+(p.notify?' checked':'')+'> Powiadamiaj e-mailem o nowych zleceniach z moich kategorii i miasta</label>':'<input type="checkbox" id="pn" hidden>')+'<p><button class="btn" data-act="saveprof">Zapisz</button> <a href="#/wykonawca/'+p.id+'">Zobacz profil publiczny</a></p>'}).catch(x=>toast(x.message))}
+const wprof=()=>'<div class="w"><div class="card" id="wp" style="margin-top:32px"><p class="mute">Ładowanie…</p></div></div>';
+function fillW(id){api('/api/workers/'+id).then(r=>{const w=r.worker;$('#wp').innerHTML='<h2 style="margin:0">'+esc(w.name)+'</h2><p class="mute">'+(r.avg?'★ '+r.avg+' · '+r.reviews.length+' opinii':'Brak opinii')+(w.city?' · '+esc(w.city):'')+'</p><p>'+esc(w.bio||'Wykonawca nie dodał jeszcze opisu.')+'</p><div class="meta">'+w.cats.map(c=>'<span class="tag">'+esc(c)+'</span>').join('')+'</div>'+r.reviews.map(v=>'<div style="border-top:1px solid var(--line);padding-top:8px;margin-top:8px"><b>'+'★'.repeat(v.rating)+'</b> <span class="mute">'+esc(v.name)+'</span><p style="margin:4px 0 0">'+esc(v.txt||'')+'</p></div>').join('')}).catch(()=>{$('#wp').innerHTML='<h3>Nie znaleziono wykonawcy</h3>'})}
+const R=[[/^\/$/,home],[/^\/zlecenia$/,list],[/^\/zlecenie\/(\d+)$/,detail],[/^\/dodaj$/,add],[/^\/ogloszenia$/,ads],[/^\/jak-to-dziala$/,how],[/^\/portfel$/,wallet],[/^\/moje$/,mine],[/^\/profil$/,prof],[/^\/konto$/,konto],[/^\/wykonawca\/(\d+)$/,wprof],[/^\/logowanie(?:\/([zw]))?$/,r=>{if(r)L.role=r;return home()+auth(0)}],[/^\/rejestracja(?:\/([zw]))?$/,r=>{if(r)L.role=r;return home()+auth(1)}],[/^\/zapomniane$/,()=>home()+forgot()],[/^\/reset\/([a-f0-9]+)$/,t=>home()+reset(t)],[/^\/weryfikacja\/([a-f0-9]+)$/,t=>{verify(t);return home()}]];
+function chrome(){const a=[['/zlecenia','Zlecenia']];
+if(U&&U.role==='w')a.push(['/moje','Moje kontakty ('+jobs.filter(j=>j.open).length+')'],['/portfel','Portfel'],['/profil','Mój profil']);
+else if(U)a.push(['/ogloszenia','Moje ogłoszenia']);
+else a.push(['/portfel','Cennik']);
+a.push(['/jak-to-dziala','Jak to działa']);
+const h=location.hash.replace(/^#/,'')||'/';
+$('#nav').innerHTML=a.map((x,i)=>'<a href="#'+x[0]+'" aria-current="'+(h===x[0]||(x[0]==='/zlecenia'&&h.startsWith('/zlecen'))?'page':'false')+'">'+(i?'':ic('search'))+x[1]+'</a>').join('');
+$('#acct').innerHTML=U?(U.role==='w'?'<a class="coin" href="#/portfel">'+pts+' pkt</a>':'')+'<a class="chip" href="#/konto">'+esc(U.name)+'<small>'+rn(U.role)+'</small></a><a class="btn sm ic-l" href="#/dodaj">'+ic('plus')+'Dodaj zlecenie</a><button class="btn out sm" data-act="out">Wyloguj</button>':'<a class="btn sm ic-l" href="#/dodaj">'+ic('plus')+'Dodaj zlecenie</a><a class="btn out sm ic-l" href="#/logowanie">'+ic('login')+'Zaloguj</a>'}
+function route(){const h=location.hash.replace(/^#/,'')||'/';let out=null;for(const[r,f]of R){const m=h.match(r);if(m){out=f(m[1]);break}}
+const ap=$('#app');ap.innerHTML=(U&&!U.verified?'<div class="w"><div class="card" style="margin-top:16px">Potwierdź adres e-mail: wysłaliśmy link na '+esc(U.email)+'. <button class="btn alt sm" data-act="resend">Wyślij ponownie</button></div></div>':'')+(out||home());ap.classList.remove('pg');void ap.offsetWidth;ap.classList.add('pg');chrome();if(h==='/zlecenia')drawList();else reveal();if($('#hl'))drawHome();const dm=h.match(/^\/zlecenie\/(\d+)$/);if(dm&&$('#ph'))api('/api/jobs/'+dm[1]).then(r=>{if(!$('#ph'))return;$('#ph').textContent=r.phone;$('#call').href='tel:'+r.phone.replace(/\s/g,'')}).catch(()=>{});if($('.modal')){const f=$('#n')||$('#m');if(f)f.focus()}if(dm)api('/api/jobs/'+dm[1]).then(r=>{if(r.unlock_id&&$('#wc')){$('#wc').innerHTML='<h3>Wiadomości</h3>'+chat(r.unlock_id);loadChat(r.unlock_id)}if($('#gal'))$('#gal').innerHTML=(r.photos||[]).map(id=>'<a href="/foto/'+id+'" target="_blank" rel="noopener"><img src="/foto/'+id+'" alt="Zdjęcie zlecenia" style="width:150px;height:110px;object-fit:cover;border-radius:10px"></a>').join('')}).catch(()=>{});if($('#pf'))fillProf();if($('#wp'))fillW(h.split('/')[2]);scrollTo(0,0)}
+function reveal(){const io=new IntersectionObserver(es=>es.forEach(x=>{if(!x.isIntersecting)return;const t=x.target;t.classList.add('in');const n=t.querySelector('[data-n]');if(n)count(n);io.unobserve(t);setTimeout(()=>{t.classList.remove('rv','in');t.style.transitionDelay=''},900)}),{threshold:.15});
+document.querySelectorAll('.steps li,.tile,.pro,.why>div,.stats div,#list .card').forEach((el,i)=>{el.classList.add('rv');el.style.transitionDelay=(i%4)*60+'ms';io.observe(el)})}
+function count(n){const to=+n.dataset.n;let v=0;const t=setInterval(()=>{v++;n.textContent=v;if(v>=to)clearInterval(t)},Math.max(50,700/to))}
+function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.k);toast.k=setTimeout(()=>t.hidden=true,3500)}
+addEventListener('hashchange',()=>sync().catch(()=>{}).then(()=>route()));
+document.addEventListener('change',e=>{const f=e.target.dataset.f;if(f){F[f]=e.target.value;drawList()}});
+document.addEventListener('click',e=>{const ch=e.target.closest('[data-chip]');if(ch){F.cat=ch.dataset.chip;document.querySelectorAll('[data-chip]').forEach(x=>x.setAttribute('aria-pressed',String(x===ch)));drawHome();return}const ct=e.target.closest('[data-cat]');if(ct){F.cat=ct.dataset.cat;F.city='';if(location.hash==='#/zlecenia')route();else location.hash='#/zlecenia';return}const b=e.target.closest('button[data-act]');if(!b)return;const a=b.dataset.act;
+if(a==='role'){L.role=b.dataset.r;const n=$('#n')?$('#n').value:'',m=$('#m').value;route();if($('#n'))$('#n').value=n;$('#m').value=m;return}
+if(a==='out'){api('/api/logout','POST',{}).catch(()=>{}).then(()=>sync()).then(()=>{toast('Wylogowano.');location.hash='#/';route()});return}
+if(a==='resend'){api('/api/resend-verification','POST',{}).then(()=>toast('Link wysłany ponownie.')).catch(x=>toast(x.message));return}
+if(a==='buy'){api('/api/checkout','POST',{pack:+b.dataset.n}).then(r=>{location.href=r.url}).catch(x=>toast(x.message));return}
+if(a==='renew'){api('/api/jobs/'+b.dataset.id+'/status','POST',{status:'open'}).then(()=>sync()).then(()=>{toast('Zlecenie odnowione na 30 dni.');route()}).catch(x=>toast(x.message));return}
+if(a==='chat'){const k=b.dataset.u;$('#cw'+k).innerHTML=chat(k);loadChat(k);return}
+if(a==='send'){const k=b.dataset.u,i=$('#ci'+k),v=i.value.trim();if(!v)return;api('/api/threads/'+k,'POST',{text:v}).then(()=>{i.value='';loadChat(k)}).catch(x=>toast(x.message));return}
+if(a==='edit'){const j=mj.find(x=>x.id==b.dataset.id),t=prompt('Tytuł',j.title);if(t===null)return;const d=prompt('Opis',j.descr);if(d===null)return;const bu=prompt('Budżet (zł)',j.budget);if(bu===null)return;api('/api/jobs/'+j.id+'/edit','POST',{title:t,descr:d,budget:bu}).then(()=>sync()).then(()=>{toast('Zapisano zmiany.');route()}).catch(x=>toast(x.message));return}
+if(a==='del'){if(!confirm('Usunąć to zlecenie?'))return;api('/api/jobs/'+b.dataset.id+'/delete','POST',{}).then(()=>sync()).then(()=>{toast('Zlecenie usunięte.');route()}).catch(x=>toast(x.message));return}
+if(a==='resp'){showResp(b.dataset.id);return}
+if(a==='rate'){const w=b.closest('[data-u]');api('/api/jobs/'+b.dataset.id+'/review','POST',{unlock_id:+w.dataset.u,rating:+w.querySelector('select').value,text:w.querySelector('input').value}).then(()=>{toast('Dziękujemy za opinię.');showResp(b.dataset.id)}).catch(x=>toast(x.message));return}
+if(a==='saveprof'){api('/api/profile','POST',{bio:$('#pb').value,city:$('#pc').value,cats:[...document.querySelectorAll('#pf [data-c]:checked')].map(x=>x.dataset.c),notify:$('#pn').checked}).then(()=>toast('Profil zapisany.')).catch(x=>toast(x.message));return}
+const j=jobs.find(x=>x.id==b.dataset.id);
+if(pts<j.cost){toast('Brakuje Ci '+(j.cost-pts)+' pkt. Dokup punkty w portfelu.');location.hash='#/portfel';return}
+api('/api/jobs/'+j.id+'/unlock','POST',{}).then(()=>sync()).then(()=>{toast('Kontakt odblokowany. Zostało '+pts+' pkt.');route()}).catch(x=>toast(x.message))});
+document.addEventListener('submit',e=>{e.preventDefault();const id=e.target.id;
+if(id==='rp'){api('/api/jobs/'+location.hash.split('/')[2]+'/report','POST',{note:$('#rn').value.trim()}).then(()=>toast('Zgłoszenie przyjęte. Sprawdzimy je i zwrócimy punkty, jeśli jest zasadne.')).catch(x=>{$('#e').textContent=x.message});return}
+if(id==='fg'){api('/api/forgot','POST',{email:$('#m').value.trim()}).then(()=>{toast('Jeśli konto istnieje, wysłaliśmy na nie link.');location.hash='#/'}).catch(x=>{$('#e').textContent=x.message});return}
+if(id==='rs'){const s=$('#s').value;if(s.length<8){$('#e').textContent='Hasło musi mieć co najmniej 8 znaków.';return}api('/api/reset','POST',{token:e.target.dataset.t,password:s}).then(()=>{toast('Hasło zmienione. Możesz się zalogować.');location.hash='#/logowanie'}).catch(x=>{$('#e').textContent=x.message});return}
+if(id==='dl'){api('/api/account/delete','POST',{email:$('#de').value.trim()}).then(()=>sync()).then(()=>{toast('Konto zostało usunięte.');location.hash='#/';route()}).catch(x=>{$('#e').textContent=x.message});return}
+if(id==='sf'){F.q=$('#q').value.trim();if(location.hash==='#/zlecenia')route();else location.hash='#/zlecenia';return}
+if(id==='a'){const up=e.target.dataset.up==='1',n=up?$('#n').value.trim():'',m=$('#m').value.trim(),s=$('#s').value;
+const er=up&&n.length<2?'Podaj imię lub nazwę firmy.':!/^\S+@\S+\.\S+$/.test(m)?'Podaj poprawny adres e-mail.':s.length<8?'Hasło musi mieć co najmniej 8 znaków.':'';
+$('#e').textContent=er;if(er)return;
+api(up?'/api/register':'/api/login','POST',{name:n,email:m,password:s,role:L.role}).then(()=>sync()).then(()=>{toast('Witaj, '+U.name+'. Jesteś zalogowany jako '+rn(U.role).toLowerCase()+'.');location.hash=U.role==='w'?'#/zlecenia':'#/dodaj';route()}).catch(x=>{$('#e').textContent=x.message});return}
+const t=$('#t').value.trim(),b=parseInt($('#b').value,10),p=$('#p').value.replace(/\D/g,'');
+const er=t.length<5?'Opisz zlecenie w kilku słowach.':$('#c').value.trim().length<2?'Podaj miasto.':!(b>0)?'Podaj budżet w złotówkach.':p.length<9?'Podaj poprawny numer telefonu.':'';
+$('#e').textContent=er;if(er)return;
+shrink($('#pi').files).then(ph=>api('/api/jobs','POST',{title:t,cat:$('#k').value,city:$('#c').value.trim(),budget:b,phone:$('#p').value.trim(),descr:$('#d').value.trim(),photos:ph})).then(()=>{F={city:'',cat:'',sort:'new'};location.hash='#/ogloszenia';toast('Zlecenie opublikowane. Wykonawcy zobaczą je od razu.')}).catch(x=>{$('#e').textContent=x.message})});
+document.addEventListener('change',e=>{const id=e.target.dataset.st;if(id)api('/api/jobs/'+id+'/status','POST',{status:e.target.value}).then(()=>sync()).then(()=>{toast('Status zmieniony.');route()}).catch(x=>toast(x.message))});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&$('.modal'))location.hash='#/'});
+sync().catch(()=>{}).then(()=>{if(/[?&]gerr=1/.test(location.search)){toast('Logowanie przez Google nie powiodło się.');history.replaceState(null,'','/'+location.hash)}if(/[?&]paid=1/.test(location.search)){toast('Dziękujemy! Punkty pojawią się w portfelu po potwierdzeniu płatności.');history.replaceState(null,'','/'+location.hash)}route()});
+</script>
+</body>
+</html>
