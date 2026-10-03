@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for zleconkaa-oiuy3w on 2026-10-03T00:36:41Z
+# fly.toml app configuration file generated for zleconkaa on 2026-10-03T00:45:32Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'zleconkaa-oiuy3w'
+app = 'zleconkaa'
 primary_region = 'fra'
 
 [build]
